@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Product') }}
+            {{ __('Kedai') }}
         </h2>
     </x-slot>
 
@@ -15,9 +15,9 @@
                 columns: [
                     { data: 'id', name: 'id', width: '5%'},
                     { data: 'name', name: 'name' },
-                    { data: 'category.name', name: 'category.name' },
-                    { data: 'kedai.name', name:'kedai.name'},
-                    { data: 'price', name: 'price' },
+                    { data: 'user.name', name: 'user.name' },
+                    {data: 'address', name: 'address'},
+                    {data: 'phone_number', name: 'phone_number'},
                     {
                         data: 'action',
                         name: 'action',
@@ -33,9 +33,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-10">
-                <a href="{{ route('dashboard.product.create') }}"
+                <a href="{{ route('dashboard.kedai.create') }}"
                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-lg">
-                    + Create Product
+                    + Create Kedai
                 </a>
             </div>
             <div class="shadow overflow-hidden sm:rounded-md">
@@ -44,10 +44,10 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nama</th>
-                                <th>Kategori</th>
-                                <th>Kedai</th>
-                                <th>Harga</th>
+                                <th>Nama Kedai</th>
+                                <th>Pemilik</th>
+                                <th>Alamat</th>
+                                <th>No. Telepon/Wa</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>

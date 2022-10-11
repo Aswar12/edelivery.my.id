@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaction::class, 'users_id', 'id');
     }
+
+    public function kedai()
+    {
+        return $this->hasOne(Kedai::class, 'user_id', 'id');
+    }
 }

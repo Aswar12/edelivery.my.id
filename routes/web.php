@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KedaiController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MyTransactionController;
 use App\Http\Controllers\ProductGalleryController;
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
         Route::middleware(['admin'])->group(function () {
             Route::resource('product', ProductController::class);
+            Route::resource('kedai', KedaiController::class);
             Route::resource('category', ProductCategoryController::class);
             Route::resource('product.gallery', ProductGalleryController::class)->shallow()->only([
                 'index', 'create', 'store', 'destroy'

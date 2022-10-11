@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use App\Http\Requests\ProductRequest;
+use App\Models\Kedai;
 use App\Models\ProductCategory;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Product::with('category');
+            $query = Product::with(['category','kedai']);
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
@@ -56,7 +57,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = ProductCategory::all();
-        return view('pages.dashboard.product.create', compact('categories'));
+        $kedais = Kedai::all();
+        return view('pages.dashboard.product.create', compact(['categories','kedais']));
     }
 
     /**
@@ -94,9 +96,11 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = ProductCategory::all();
+        $kedais= Kedai::all();
         return view('pages.dashboard.product.edit',[
             'item' => $product,
-            'categories' => $categories
+            'categories' => $categories,
+            'kedais' => $kedais
         ]);
     }
 

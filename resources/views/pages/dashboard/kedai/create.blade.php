@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {!! __('Product &raquo; Create') !!}
+            {!! __('Kedai &raquo; Create') !!}
         </h2>
     </x-slot>
 
@@ -24,95 +24,61 @@
                     </div>
                 </div>
                 @endif
-                <form class="w-full" action="{{ route('dashboard.product.store') }}" method="post"
+                <form class="w-full" action="{{ route('dashboard.kedai.store') }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
+                    <div class="flex flex-wrap px-3 mb-6">
+                        <div class="w-full px-3 mb-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 for="grid-last-name">
                                 Name
                             </label>
                             <input value="{{ old('name') }}" name="name"
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text" placeholder="Product Name">
+                                id="grid-last-name" type="text" placeholder="Nama Kedai">
                         </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
+                        <div class="w-full px-3 mb-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 for="grid-last-name">
-                                Tags
+                                Pemilik
                             </label>
-                            <input value="{{ old('tags') }}" name="tags"
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text"
-                                placeholder="Product Tags. Comma Separated. Example: popular">
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-last-name">
-                                Categories
-                            </label>
-                            <select name="categories_id"
+                            <select name="user_id"
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="grid-last-name">
-                                @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
+                        <div class="w-full px-3 mb-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 for="grid-last-name">
-                                Kedai
+                                Alamat
                             </label>
-                            <select name="kedai_id"
+                            <input value="{{ old('address') }}" name="address"
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name">
-                                @foreach ($kedais as $kedai)
-                                <option value="{{ $kedai->id }}">{{ $kedai->name }}</option>
-                                @endforeach
-                            </select>
+                                id="grid-last-name" type="text" placeholder="Alamat Kedai">
                         </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
+                        <div class="w-full px-3 mb-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                 for="grid-last-name">
-                                Description
+                                No. Telepon/Wa
                             </label>
-                            <textarea name="description"
+                            <input value="{{ old('phone_number') }}" name="phone_number"
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text"
-                                placeholder="Product Description">{{ old('description') }}</textarea>
+                                id="grid-last-name" type="text" placeholder="No Telepon/Wa kedai ">
                         </div>
                     </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                for="grid-last-name">
-                                Price
-                            </label>
-                            <input value="{{ old('price') }}" name="price"
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="number" placeholder="Product Price">
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="flex flex-wrap px-3 mb-6 ">
                         <div class="w-full px-3 text-right">
                             <button type="submit"
                                 class=" shadow-lg bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Save Product
+                                Save Kedai
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+    </div>-
 </x-app-layout>
