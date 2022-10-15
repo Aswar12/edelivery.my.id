@@ -19,11 +19,9 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->float('price');
             $table->longText('description');
-
             $table->string('tags')->nullable();
-
             $table->bigInteger('categories_id');
-            $table->bigInteger('kedai_id');
+            $table->bigInteger('kedai_id')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('user_locations', function (Blueprint $table) {
             $table->id();
             $table->string('customer_name');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('user_id');
             $table->string('address');
             $table->string('longitude');
             $table->string('latitude');

@@ -23,8 +23,10 @@ class UserController extends Controller
      */
     public function fetch(Request $request)
     {   
-       $user= Auth::user()->with('user_location')->get();
-        return ResponseFormatter::success($user,'Data profile user berhasil diambil');
+        $id = $request->user()->id;
+        
+                $data= User::with('user_locations')->find($id);
+        return ResponseFormatter::success($data,'Data profile user berhasil diambil');
     }
 
     /**
@@ -47,7 +49,7 @@ class UserController extends Controller
                 ],'Authentication Failed', 500);
             }
 
-            $user = User::with('user_location')->where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
             if ( ! Hash::check($request->password, $user->password, [])) {
                 throw new \Exception('Invalid Credentials');
             }
@@ -88,7 +90,7 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            $user = User::with('user_location')->where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
 
             $tokenResult = $user->createToken('authToken')->plainTextToken;
 
