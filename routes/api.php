@@ -6,6 +6,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\ProductCategoryController;
+use App\Http\Controllers\API\UserLocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('user', [UserController::class, 'fetch']);
     Route::post('user', [UserController::class, 'updateProfile']);
     Route::post('logout', [UserController::class, 'logout']);
+    Route::get('address-list', [UserController::class,'address_list']);
+    Route::post('address-add', [UserController::class,'add_new_address']);
+    Route::put('address-update/{id}',[UserController::class,'update_address']);
+    Route::delete('address-delete/{id}',[UserController::class,'delete_address']);
+    Route::resource('address', UserLocationController::class);
+
 
     Route::get('transactions', [TransactionController::class, 'all']);
     Route::post('checkout', [TransactionController::class, 'checkout']);

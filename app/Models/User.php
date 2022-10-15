@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'username',
+        'user_location',
         'roles',
         'password',
     ];
@@ -69,5 +70,10 @@ class User extends Authenticatable
     public function kedai()
     {
         return $this->hasOne(Kedai::class, 'user_id', 'id');
+    }
+
+    public function user_location()
+    {
+        return $this->hasMany(UserLocation::class, 'user_id', 'id');
     }
 }
