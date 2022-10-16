@@ -88,6 +88,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
+                'profile_photo_path' => 'profile-photos/JXvo4HW7FJIAK5BgB6dFqnPU4y3cpaKaQCqXfp6v.png',
             ]);
 
             $user = User::where('email', $request->email)->first();
