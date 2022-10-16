@@ -74,7 +74,8 @@ class UserController extends Controller
      * @throws \Exception
      */
     public function register(Request $request)
-    {
+    {   
+        $defaultphoto= 'profile-photos/JXvo4HW7FJIAK5BgB6dFqnPU4y3cpaKaQCqXfp6v.png';
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
@@ -88,7 +89,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
-                'profile_photo_path' => 'profile-photos/JXvo4HW7FJIAK5BgB6dFqnPU4y3cpaKaQCqXfp6v.png',
+                'profile_photo_path' =>$defaultphoto,
             ]);
 
             $user = User::where('email', $request->email)->first();
