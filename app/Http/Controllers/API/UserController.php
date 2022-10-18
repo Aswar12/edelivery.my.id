@@ -75,11 +75,12 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {   
-        $defaultphoto= 'profile-photos/JXvo4HW7FJIAK5BgB6dFqnPU4y3cpaKaQCqXfp6v.png';
+
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'username' => ['required', 'string', 'max:255', 'unique:users'],
+                'phone_number' => ['required', 'string', 'max:255', ],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', new Password]
             ]);
@@ -87,9 +88,9 @@ class UserController extends Controller
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'phone_number' => $request->phone_number,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
-                'profile_photo_path' =>$defaultphoto,
             ]);
 
             $user = User::where('email', $request->email)->first();
