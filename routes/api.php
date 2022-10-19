@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('address-update/{id}',[UserController::class,'update_address']);
     Route::delete('address-delete/{id}',[UserController::class,'delete_address']);
     Route::resource('address', UserLocationController::class);
-    Route::get('geocode-api', [UserLocationController::class,'geocode_api']);
+    Route::post('geocode-api', [UserLocationController::class,'geocode_api']);
 
     Route::get('transactions', [TransactionController::class, 'all']);
     Route::post('checkout', [TransactionController::class, 'checkout']);
