@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserLocation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Rules\Password;
 use PhpParser\Node\Stmt\Return_;
@@ -213,7 +214,7 @@ class UserController extends Controller
            
         }
        
-        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='."AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k");
+        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='.'AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k');
         return $response->json();
     }
 }
