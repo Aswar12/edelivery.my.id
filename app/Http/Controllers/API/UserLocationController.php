@@ -95,7 +95,7 @@ class UserLocationController extends Controller
            
         }
        
-        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='."Your key the one you put in your flutter");
+        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='."AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k");
         return $response->json();
     }
 

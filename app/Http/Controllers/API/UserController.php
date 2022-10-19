@@ -201,4 +201,19 @@ class UserController extends Controller
     UserLocation::where('user_id', $id)->delete();
     return ResponseFormatter::success('user location deleted',200);
    }
+   public function geocode_api(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'lat' => 'required',
+            'lng' => 'required',
+        ]);
+
+        if ($validator->errors()->count()>0) {
+            return ResponseFormatter::error($validator, 403);
+           
+        }
+       
+        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='."AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k");
+        return $response->json();
+    }
 }
