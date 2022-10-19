@@ -83,9 +83,20 @@ class UserLocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function geocode_api(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'lat' => 'required',
+            'lng' => 'required',
+        ]);
+
+        if ($validator->errors()->count()>0) {
+            return ResponseFormatter::error($validator, 403);
+           
+        }
+       
+        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='."Your key the one you put in your flutter");
+        return $response->json();
     }
 
     /**
