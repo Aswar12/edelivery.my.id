@@ -17,4 +17,8 @@ class UserLocation extends Model
         'latitude',
         'address_type',
     ];
+
+    public function transaction(){
+        return $this->hasMany(Transaction::class, 'user_location_id', 'id');
+    }
 }

@@ -15,6 +15,7 @@
                 columns: [
                     { data: 'id', name: 'id', width: '5%'},
                     { data: 'product.name', name: 'product.name' },
+                    
                     { data: 'product.price', name: 'product.price' },
                     { data: 'quantity', name: 'quantity' },
                 ],
@@ -27,7 +28,7 @@
             <h2 class="font-semibold text-lg text-gray-800 leading-tight mb-5">Transaction Details</h2>
 
             <div class="bg-white overflow-hidden shadow sm:rounded-lg mb-10">
-                 <div class="p-6 bg-white border-b border-gray-200">
+                <div class="p-6 bg-white border-b border-gray-200">
                     <table class="table-auto w-full">
                         <tbody>
                             <tr>
@@ -45,6 +46,10 @@
                             <tr>
                                 <th class="border px-6 py-4 text-right">Payment</th>
                                 <td class="border px-6 py-4">{{ $transaction->payment }}</td>
+                            </tr>
+                            <tr>
+                                <th class="border px-6 py-4 text-right">No. Telepon</th>
+                                <td class="border px-6 py-4">{{ $transaction->user_location->phone_number }}</td>
                             </tr>
                             <tr>
                                 <th class="border px-6 py-4 text-right">Total Price</th>
@@ -68,12 +73,12 @@
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <table id="crudTable">
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Produk</th>
-                            <th>Harga</th>
-                            <th>Qty</th>
-                        </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Produk</th>
+                                <th>Harga</th>
+                                <th>Qty</th>
+                            </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
