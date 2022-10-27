@@ -56,6 +56,7 @@ class TransactionController extends Controller
             'items.*.id' => 'exists:products,id',
             'total_price' => 'required',
             'shipping_price' => 'required',
+            'user_location_id' => 'required',
             'status' => 'required|in:PENDING,SUCCESS,CANCELLED,FAILED,SHIPPING,SHIPPED',
         ]);
 
@@ -63,6 +64,7 @@ class TransactionController extends Controller
             'users_id' => Auth::user()->id,
             'address' => $request->address,
             'total_price' => $request->total_price,
+            'user_location_id' => $request->user_location_id,
             'shipping_price' => $request->shipping_price,
             'status' => $request->status
         ]);
