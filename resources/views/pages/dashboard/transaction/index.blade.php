@@ -11,9 +11,10 @@
             var datatable = $('#crudTable').DataTable({
                 ajax: {
                     url: '{!! url()->current() !!}',
+                    order: [[0, 'desc']]
                 },
                 columns: [
-                    { data: 'id', name: 'id', width: '5%', "aaSorting": [[ 0, "desc" ]]},
+                    { data: 'id', name: 'id', width: '5%'},
                     { data: 'user.name', name: 'user.name' },
                     {data: 'user_location.address', name: 'user_location.address'},
                     { data: 'total_price', name: 'total_price' },
