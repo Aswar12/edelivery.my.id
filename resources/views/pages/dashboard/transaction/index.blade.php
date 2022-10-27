@@ -15,6 +15,7 @@
                 columns: [
                     { data: 'id', name: 'id', width: '5%'},
                     { data: 'user.name', name: 'user.name' },
+                    {data: 'user_location.address', name: 'user_location.address'},
                     { data: 'total_price', name: 'total_price' },
                     { data: 'status', name: 'status' },
                     {
@@ -35,13 +36,14 @@
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <table id="crudTable">
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Total Harga</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>Total Harga</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
