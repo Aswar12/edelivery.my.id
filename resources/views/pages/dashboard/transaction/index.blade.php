@@ -13,7 +13,7 @@
                     url: '{!! url()->current() !!}',
                 },
                 columns: [
-                    { data: 'id', name: 'id', width: '5%'},
+                    { data: 'id', name: 'id', width: '5%', "aaSorting": [[ 0, "desc" ]]},
                     { data: 'user.name', name: 'user.name' },
                     {data: 'user_location.address', name: 'user_location.address'},
                     { data: 'total_price', name: 'total_price' },
@@ -22,7 +22,7 @@
                         data: 'action',
                         name: 'action',
                         orderable: false,
-                        searchable: false,
+                        searchable: true,
                         width: '25%'
                     },
                 ],
