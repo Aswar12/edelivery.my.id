@@ -60,6 +60,11 @@
                                 <td class="border px-6 py-4">{{ number_format($transaction->shipping_price) }}</td>
                             </tr>
                             <tr>
+                                <th class="border px-6 py-4 text-right">Total Payment</th>
+                                <td class="border px-6 py-4">{{ number_format($transaction->shipping_price +
+                                    $transaction->total_price ) }}</td>
+                            </tr>
+                            <tr>
                                 <th class="border px-6 py-4 text-right">Status</th>
                                 <td class="border px-6 py-4">{{ $transaction->status }}</td>
                             </tr>
