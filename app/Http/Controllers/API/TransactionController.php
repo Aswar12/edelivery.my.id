@@ -34,7 +34,7 @@ class TransactionController extends Controller
                 );
         }
 
-        $transaction = Transaction::with(['items.product.galleries,category,kedai'])->where('users_id', Auth::user()->id);
+        $transaction = Transaction::with(['items.product.galleries.category.kedai'])->where('users_id', Auth::user()->id);
 
         if($status)
             $transaction->where('status', $status);
