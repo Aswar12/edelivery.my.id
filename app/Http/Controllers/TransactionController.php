@@ -18,7 +18,7 @@ class TransactionController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Transaction::with(['user', 'user_location']);
+            $query = Transaction::with(['user', 'user_location'])->latest();
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
@@ -72,7 +72,7 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         if (request()->ajax()) {
-            $query = TransactionItem::with(['product'])->where('transactions_id', $transaction->id);
+            $query = TransactionItem::with(['product'])->where('transactions_id', $transaction->id)->latest();
 
             return DataTables::of($query)
                 ->editColumn('product.price', function ($item) {
