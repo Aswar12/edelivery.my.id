@@ -127,6 +127,29 @@ class UserController extends Controller
 
         return ResponseFormatter::success($user,'Profile Updated');
     }
+    
+    public function uploadPhoto(Request $request){  
+        $validator = Validator::make($request->all(),[
+            'file' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+        if($validator->fails()){
+            return ResponseFormatter::error([
+                'error' => $validator->errors()
+            ],'Upload photo failed', 401);
+
+        }
+        if($request->file('file')){
+            $file = $request->file->store('assets/user','public');
+            //simpan ke database
+            $user = Auth::user();
+            $user->profile_photo_path = $file;
+            $user->update();
+            return ResponseFormatter::success([$file],'File successfully uploaded');
+        }
+
+    }
+
+
 
     public function address_list(Request $request){
         
@@ -214,7 +237,7 @@ class UserController extends Controller
            
         }
        
-        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='.'AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k');
+        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='.'AIzaSyDQm7fskSlerL2C1_1ODi4-49MMQanF63Y');
         return $response->json();
     }
 }
