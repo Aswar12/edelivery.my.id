@@ -22,15 +22,15 @@ use App\Http\Controllers\API\UserLocationController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('user', [UserController::class, 'fetch']);
-    Route::put('user', [UserController::class, 'updateProfile']);
+    Route::put('userdata', [UserController::class, 'updateProfile']);
     Route::post('user-photo', [UserController::class, 'uploadPhoto']);
     Route::post('logout', [UserController::class, 'logout']);
-    Route::get('address-list', [UserController::class,'address_list']);
-    Route::post('address-add', [UserController::class,'add_new_address']);
-    Route::put('address-update/{id}',[UserController::class,'update_address']);
-    Route::delete('address-delete/{id}',[UserController::class,'delete_address']);
+    Route::get('address-list', [UserController::class, 'address_list']);
+    Route::post('address-add', [UserController::class, 'add_new_address']);
+    Route::put('address-update/{id}', [UserController::class, 'update_address']);
+    Route::delete('address-delete/{id}', [UserController::class, 'delete_address']);
     Route::resource('address', UserLocationController::class);
-    Route::post('geocode-api', [UserController::class,'geocode_api']);
+    Route::post('geocode-api', [UserController::class, 'geocode_api']);
 
     Route::get('transactions', [TransactionController::class, 'all']);
     Route::post('checkout', [TransactionController::class, 'checkout']);
