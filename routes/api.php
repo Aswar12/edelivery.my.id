@@ -22,7 +22,7 @@ use App\Http\Controllers\API\UserLocationController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('user', [UserController::class, 'fetch']);
-    Route::put('userdata', [UserController::class, 'updateProfile']);
+    Route::post('userdata', [UserController::class, 'updateProfile']);
     Route::post('user-photo', [UserController::class, 'uploadPhoto']);
     Route::post('logout', [UserController::class, 'logout']);
     Route::get('address-list', [UserController::class, 'address_list']);
