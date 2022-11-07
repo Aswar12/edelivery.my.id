@@ -122,9 +122,8 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $data = $request->all();
-        $user->$data;
-        $user->update();
 
+        $user->update($data);
         return ResponseFormatter::success($user, 'Profile Updated');
     }
 
