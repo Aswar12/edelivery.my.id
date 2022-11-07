@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('deliveries', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('kurir_id');
-            $table->bigInteger('transactions_id');
-            $table->timestamps();
+        Schema::table('transactions', function (Blueprint $table) {
+
+            $table->double('rating')->after('address')->nullable();
+            $table->text('note')->after('address')->nullable();
         });
     }
 
@@ -28,6 +27,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deliveries');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->dropColumn('rating');
+            $table->dropColumn('note');
+        });
     }
 };
