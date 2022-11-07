@@ -120,30 +120,11 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
-        try {
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'username' => ['required', 'string', 'max:255', 'unique:users'],
-                'phone_number' => ['required', 'string', 'max:255',],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            ]);
+        $data = $request->all();
+        $user = Auth::user();
+        $user->update($data);
 
-            $data = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone_number' => $request->phone_number,
-                'username' => $request->username,
-            ];
-
-            $user = Auth::user();
-            $user->update($data);
-            return ResponseFormatter::success($user, 'Profile Updated');
-        } catch (Exception $error) {
-            return ResponseFormatter::error([
-                'message' => 'Something went wrong',
-                'error' => $error,
-            ], 'Authentication Failed', 500);
-        }
+        return ResponseFormatter::success($user, 'Profile Updated');
     }
 
     public function uploadPhoto(Request $request)
