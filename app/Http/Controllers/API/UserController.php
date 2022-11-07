@@ -23,11 +23,11 @@ class UserController extends Controller
      * @return mixed
      */
     public function fetch(Request $request)
-    {   
+    {
         $id = $request->user()->id;
-        
-                $data= User::with('user_locations')->find($id);
-        return ResponseFormatter::success($data,'Data profile user berhasil diambil');
+
+        $data = User::with('user_locations')->find($id);
+        return ResponseFormatter::success($data, 'Data profile user berhasil diambil');
     }
 
     /**
@@ -47,11 +47,11 @@ class UserController extends Controller
             if (!Auth::attempt($credentials)) {
                 return ResponseFormatter::error([
                     'message' => 'Unauthorized'
-                ],'Authentication Failed', 500);
+                ], 'Authentication Failed', 500);
             }
 
             $user = User::where('email', $request->email)->first();
-            if ( ! Hash::check($request->password, $user->password, [])) {
+            if (!Hash::check($request->password, $user->password, [])) {
                 throw new \Exception('Invalid Credentials');
             }
 
@@ -60,12 +60,12 @@ class UserController extends Controller
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
                 'user' => $user
-            ],'Authenticated');
+            ], 'Authenticated');
         } catch (Exception $error) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
                 'error' => $error,
-            ],'Authentication Failed', 500);
+            ], 'Authentication Failed', 500);
         }
     }
 
@@ -75,13 +75,13 @@ class UserController extends Controller
      * @throws \Exception
      */
     public function register(Request $request)
-    {   
+    {
 
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'username' => ['required', 'string', 'max:255', 'unique:users'],
-                'phone_number' => ['required', 'string', 'max:255', ],
+                'phone_number' => ['required', 'string', 'max:255',],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', new Password]
             ]);
@@ -102,12 +102,12 @@ class UserController extends Controller
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
                 'user' => $user
-            ],'User Registered');
+            ], 'User Registered');
         } catch (Exception $error) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
                 'error' => $error,
-            ],'Authentication Failed', 500);
+            ], 'Authentication Failed', 500);
         }
     }
 
@@ -115,46 +115,64 @@ class UserController extends Controller
     {
         $token = $request->user()->currentAccessToken()->delete();
 
-        return ResponseFormatter::success($token,'Token Revoked');
+        return ResponseFormatter::success($token, 'Token Revoked');
     }
 
     public function updateProfile(Request $request)
     {
-        $data = $request->all();
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'username' => ['required', 'string', 'max:255', 'unique:users'],
+                'phone_number' => ['required', 'string', 'max:255',],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            ]);
 
-        $user = Auth::user();
-        $user->update($data);
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'username' => $request->username,
+            ];
 
-        return ResponseFormatter::success($user,'Profile Updated');
+            $user = Auth::user();
+            $user->update($data);
+            return ResponseFormatter::success($user, 'Profile Updated');
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 'Authentication Failed', 500);
+        }
     }
-    
-    public function uploadPhoto(Request $request){  
-        $validator = Validator::make($request->all(),[
+
+    public function uploadPhoto(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'file' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return ResponseFormatter::error([
                 'error' => $validator->errors()
-            ],'Upload photo failed', 401);
-
+            ], 'Upload photo failed', 401);
         }
-        if($request->file('file')){
-            $file = $request->file->store('assets/user','public');
+        if ($request->file('file')) {
+            $file = $request->file->store('assets/user', 'public');
             //simpan ke database
             $user = Auth::user();
             $user->profile_photo_path = $file;
             $user->update();
-            return ResponseFormatter::success([$file],'File successfully uploaded');
+            return ResponseFormatter::success([$file], 'File successfully uploaded');
         }
-
     }
 
 
 
-    public function address_list(Request $request){
-        
-        $userlocation = UserLocation::where('user_id', $request->user()->id)->get(); 
-        return ResponseFormatter::success($userlocation,'Address List', 200);
+    public function address_list(Request $request)
+    {
+
+        $userlocation = UserLocation::where('user_id', $request->user()->id)->get();
+        return ResponseFormatter::success($userlocation, 'Address List', 200);
     }
 
 
@@ -164,7 +182,7 @@ class UserController extends Controller
             'customer_name' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
-          
+
         ]);
 
         if ($validator->fails()) {
@@ -184,10 +202,10 @@ class UserController extends Controller
             'updated_at' => now()
         ];
         UserLocation::create($address);
-        return ResponseFormatter::success($address,'location successfully added', 200);
+        return ResponseFormatter::success($address, 'location successfully added', 200);
     }
-        public function update_address(Request $request, $id)
-    {   
+    public function update_address(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'customer_name' => 'required',
             'address_type' => 'required',
@@ -214,30 +232,30 @@ class UserController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ];
-        
-        $userlocation = UserLocation::where('id', $id)->update($address);
-    
-        
-        return ResponseFormatter::success($address ,'update location succsess', 200);
-}
 
-   public function address_delete(Request $request, $id){
-    UserLocation::where('user_id', $id)->delete();
-    return ResponseFormatter::success('user location deleted',200);
-   }
-   public function geocode_api(Request $request)
+        $userlocation = UserLocation::where('id', $id)->update($address);
+
+
+        return ResponseFormatter::success($address, 'update location succsess', 200);
+    }
+
+    public function address_delete(Request $request, $id)
+    {
+        UserLocation::where('user_id', $id)->delete();
+        return ResponseFormatter::success('user location deleted', 200);
+    }
+    public function geocode_api(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'lat' => 'required',
             'lng' => 'required',
         ]);
 
-        if ($validator->errors()->count()>0) {
+        if ($validator->errors()->count() > 0) {
             return ResponseFormatter::error($validator, 403);
-           
         }
-       
-        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='.'AIzaSyDQm7fskSlerL2C1_1ODi4-49MMQanF63Y');
+
+        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $request->lat . ',' . $request->lng . '&key=' . 'AIzaSyDQm7fskSlerL2C1_1ODi4-49MMQanF63Y');
         return $response->json();
     }
 }
