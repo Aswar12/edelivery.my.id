@@ -84,7 +84,7 @@ class TransactionController extends Controller
     public function addrating(Request $request)
     {
         $request->validate([
-            'transactions_id' => 'required|exists:transactions,id',
+            'id' => 'required|exists:transactions,id',
             'rating' => 'required',
             'note' => 'required',
         ]);
