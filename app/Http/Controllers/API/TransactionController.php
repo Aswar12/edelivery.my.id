@@ -43,6 +43,38 @@ class TransactionController extends Controller
             'Data list transaksi berhasil diambil'
         );
     }
+    public function alltransactions(Request $request)
+    {
+        $id = $request->input('id');
+        $limit = $request->input('limit', 20);
+        $status = $request->input('status');
+
+        if ($id) {
+            $transaction = Transaction::with(['items.product'])->find($id);
+
+            if ($transaction)
+                return ResponseFormatter::success(
+                    $transaction,
+                    'Data transaksi berhasil diambil'
+                );
+            else
+                return ResponseFormatter::error(
+                    null,
+                    'Data transaksi tidak ada',
+                    404
+                );
+        }
+
+        $transaction = Transaction::with(['items.product', 'user', 'user_location'])->latest();
+
+        if ($status)
+            $transaction->where('status', $status);
+
+        return ResponseFormatter::success(
+            $transaction->paginate($limit),
+            'Data list transaksi berhasil diambil'
+        );
+    }
 
     /**
      * @param Request $request
