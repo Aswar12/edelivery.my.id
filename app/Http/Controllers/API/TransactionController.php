@@ -14,7 +14,7 @@ class TransactionController extends Controller
     public function all(Request $request)
     {
         $id = $request->input('id');
-        $limit = $request->input('limit', 10);
+        $limit = $request->input('limit', 20);
         $status = $request->input('status');
 
         if ($id) {
