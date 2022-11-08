@@ -17,8 +17,8 @@ class UserLocationController extends Controller
      */
     public function index(Request $request)
     {
-        $userlocation = UserLocation::where('user_id', $request->user()->id)->get(); 
-        return ResponseFormatter::success($userlocation,'Address List', 200);
+        $userlocation = UserLocation::where('user_id', $request->user()->id)->get();
+        return ResponseFormatter::success($userlocation, 'Address List', 200);
     }
 
     /**
@@ -43,7 +43,7 @@ class UserLocationController extends Controller
             'customer_name' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
-          
+
         ]);
 
         if ($validator->fails()) {
@@ -63,7 +63,7 @@ class UserLocationController extends Controller
             'updated_at' => now()
         ];
         UserLocation::create($address);
-        return ResponseFormatter::success($address,'location successfully added', 200);
+        return ResponseFormatter::success($address, 'location successfully added', 200);
     }
 
     /**
@@ -90,12 +90,11 @@ class UserLocationController extends Controller
             'lng' => 'required',
         ]);
 
-        if ($validator->errors()->count()>0) {
+        if ($validator->errors()->count() > 0) {
             return ResponseFormatter::error($validator, 403);
-           
         }
-       
-        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='."AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k");
+
+        $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' . $request->lat . ',' . $request->lng . '&key=' . "AIzaSyDQm7fskSlerL2C1_1ODi4-49MMQanF63Y");
         return $response->json();
     }
 
@@ -134,11 +133,11 @@ class UserLocationController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ];
-        
+
         UserLocation::where('id', $id)->update($address);
-    
-        
-        return ResponseFormatter::success($address ,'update location succsess', 200);
+
+
+        return ResponseFormatter::success($address, 'update location succsess', 200);
     }
 
     /**
@@ -150,6 +149,6 @@ class UserLocationController extends Controller
     public function destroy(UserLocation $userLocation)
     {
         $userLocation->delete();
-        return ResponseFormatter::success('user location deleted',200);
+        return ResponseFormatter::success('user location deleted', 200);
     }
 }
