@@ -27,9 +27,4 @@ class Transaction extends Model
     {
         return $this->belongsTo(UserLocation::class, 'user_location_id', 'id');
     }
-
-    public function delivery()
-    {
-        return $this->belongsTo(Delivery::class, 'transactions_id', 'id');
-    }
 }
