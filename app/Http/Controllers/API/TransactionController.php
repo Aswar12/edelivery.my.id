@@ -65,7 +65,7 @@ class TransactionController extends Controller
                 );
         }
 
-        $transaction = Transaction::with(['items.product.galleries,', 'user', 'user_location'])->latest();
+        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->latest();
 
         if ($status)
             $transaction->where('status', $status);
