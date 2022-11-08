@@ -11,9 +11,9 @@ class Transaction extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'users_id', 'address', 'payment', 'total_price', 'shipping_price', 'status', 'user_location_id'
+        'users_id', 'address', 'payment', 'total_price', 'shipping_price', 'status', 'user_location_id', 'rating', 'note'
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
@@ -26,5 +26,10 @@ class Transaction extends Model
     public function user_location()
     {
         return $this->belongsTo(UserLocation::class, 'user_location_id', 'id');
+    }
+
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class, 'transactions_id', 'id');
     }
 }
