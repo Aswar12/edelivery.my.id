@@ -89,7 +89,7 @@ class TransactionController extends Controller
             'note' => 'required',
         ]);
 
-        $transaction = Transaction::find($request->transactions_id);
+        $transaction = Transaction::find($request->id);
         $data = $request->all();
         $transaction->update($data);
 
