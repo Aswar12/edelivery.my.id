@@ -167,11 +167,13 @@ class TransactionController extends Controller
             'status' => 'required|in:PENDING,SUCCESS,CANCELLED,FAILED,PICKUP,ONDELIVERY',
 
         ]);
+        $data= [
+            'kurir_id' => Auth::user()->id,
+            'status' => $request->status,            
+        ];
 
-        $request->kurir_id = Auth::user()->id;
 
         $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->find($request->id);
-        $data = $request->all();
         $transaction->update($data);
 
         return ResponseFormatter::success($transaction, 'Transaksi berhasil diupdate');
@@ -180,7 +182,7 @@ class TransactionController extends Controller
     public function getPickupOrderBykurir(Request $request)
     {
 
-        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->where('kurir_id', Auth::user()->id)->where('status', 'PICKUP')->get()->last();
+        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->where('kurir_id', Auth::user()->id)->where('status', 'PICKUP')->get()last();
 
         return ResponseFormatter::success($transaction, 'Data list transaksi berhasil diambil');
     }
