@@ -160,11 +160,11 @@ class TransactionController extends Controller
         return ResponseFormatter::success($transaction->load('items.product'), 'Rating berhasil ditambahkan ');
     }
 
-    public function updatestatus(Request $request,)
+    public function updatestatus(Request $request)
     {
         Delivery::create([
             'kurir_id' => Auth::user()->id,
-            'transactions_id' => $request->input($request->id),
+            'transactions_id' => $request->id,
         ]);
 
         $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->find($request->id);
