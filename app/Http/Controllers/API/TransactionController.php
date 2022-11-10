@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Delivery;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
@@ -166,5 +167,17 @@ class TransactionController extends Controller
         $transaction->update($data);
 
         return ResponseFormatter::success($transaction, 'Transaksi berhasil diupdate');
+    }
+
+    public function picupOrder(Request $request)
+    {
+
+        Delivery::create([
+            'kurir_id' => Auth::user()->id,
+            'transactions_id' => $request->input('transactions_id'),
+        ]);
+
+        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->latest()->find($request->input('transactions_id'));
+        return ResponseFormatter::success($transaction, 'Transaksi berhasil Di PickUp');
     }
 }
