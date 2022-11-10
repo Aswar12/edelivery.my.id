@@ -106,8 +106,10 @@ class TransactionController extends Controller
                 'users_id' => Auth::user()->id,
                 'products_id' => $product['id'],
                 'transactions_id' => $transaction->id,
-                'quantity' => $product['quantity']
+                'quantity' => $product['quantity'],
+
             ]);
+            $dataProduct = Product::where('id', $product['id']);
         }
         $SERVER_API_KEY = 'AAAALCUa4N0:APA91bG0SJP6S-jkV2u0LwnySlcFEqnvxU1cw-HFVtdONTUrL3BMwcO464apycQPZ_SvwJMFRa4MLCtmFxGVIqonyOcuy2_Z6S_W7SawomoPZY1PWOf6kJDJoxigur7JNMW8qp3eZy8w';
 
