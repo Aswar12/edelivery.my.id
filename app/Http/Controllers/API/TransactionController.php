@@ -108,9 +108,36 @@ class TransactionController extends Controller
                 'quantity' => $product['quantity']
             ]);
         }
+        $SERVER_API_KEY = 'AAAALCUa4N0:APA91bG0SJP6S-jkV2u0LwnySlcFEqnvxU1cw-HFVtdONTUrL3BMwcO464apycQPZ_SvwJMFRa4MLCtmFxGVIqonyOcuy2_Z6S_W7SawomoPZY1PWOf6kJDJoxigur7JNMW8qp3eZy8w';
 
+        $data = [
+            "to" => "/topics/Kurir",
+            "notification" => [
+                "title" => 'Pesanan masuk Dari' . $request->user()->name,
+                "body" => 'Memesan Sebuah' . $product['name'],
+            ]
+        ];
+        $dataString = json_encode($data);
+
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
         return ResponseFormatter::success($transaction->load('items.product'), 'Transaksi berhasil');
     }
+
+    //send notification to fcm topics ?
 
 
     public function addrating(Request $request)
