@@ -36,6 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('alltransactions', [TransactionController::class, 'alltransactions']);
     Route::post('checkout', [TransactionController::class, 'checkout']);
     Route::post('addrating', [TransactionController::class, 'addrating']);
+    Route::post('updatestatus', [TransactionController::class, 'updatestatus']);
 });
 
 
