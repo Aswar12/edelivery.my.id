@@ -33,11 +33,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('geocode-api', [UserController::class, 'geocode_api']);
 
     Route::get('transactions', [TransactionController::class, 'all']);
+    Route::get('transactions', [TransactionController::class, 'all']);
 
     Route::post('checkout', [TransactionController::class, 'checkout']);
     Route::post('addrating', [TransactionController::class, 'addrating']);
     Route::post('updatestatus', [TransactionController::class, 'updatestatus']);
-    Route::post('picupOrder', [TransactionController::class, 'picupOrder']);
+    Route::get('getPickupOrderBykurir', [TransactionController::class, 'getPickupOrderBykurir']);
 });
 
 Route::get('alltransactions', [TransactionController::class, 'alltransactions']);

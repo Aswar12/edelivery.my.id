@@ -176,4 +176,12 @@ class TransactionController extends Controller
 
         return ResponseFormatter::success($transaction, 'Transaksi berhasil diupdate');
     }
+
+    public function getPickupOrderBykurir()
+    {
+
+        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->where('kurir_id', Auth::user()->id)->where('status', 'PICKUP')->get();
+
+        return ResponseFormatter::success($transaction, 'Data list transaksi berhasil diambil');
+    }
 }
