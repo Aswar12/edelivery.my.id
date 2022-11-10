@@ -113,8 +113,8 @@ class TransactionController extends Controller
         $data = [
             "to" => "/topics/Kurir",
             "notification" => [
-                "title" => 'Pesanan masuk Dari' . $request->user()->name,
-                "body" => 'Memesan Sebuah' . $product['name'],
+                "title" => 'Pesanan masuk Dari' . Auth::user()->name,
+                "body" => 'Memesan Sebuah',
             ]
         ];
         $dataString = json_encode($data);
