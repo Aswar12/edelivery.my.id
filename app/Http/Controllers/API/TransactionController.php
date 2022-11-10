@@ -109,17 +109,16 @@ class TransactionController extends Controller
                 'quantity' => $product['quantity'],
 
             ]);
-            $dataProduct = Product::where('id', $product['id']);
         }
         $SERVER_API_KEY = 'AAAALCUa4N0:APA91bG0SJP6S-jkV2u0LwnySlcFEqnvxU1cw-HFVtdONTUrL3BMwcO464apycQPZ_SvwJMFRa4MLCtmFxGVIqonyOcuy2_Z6S_W7SawomoPZY1PWOf6kJDJoxigur7JNMW8qp3eZy8w';
 
-        $dataProduct = Product::where('id', $product['id']);
+        $transaction->load('items.product');
 
         $data = [
             "to" => "/topics/Kurir",
             "notification" => [
                 "title" => 'Pesanan masuk Dari' . Auth::user()->name,
-                "body" => 'Memesan Sebuah' . $dataProduct->name,
+                "body" => 'Memesan Sebuah' . $transaction->items[0]->product->name,
             ]
         ];
         $dataString = json_encode($data);
