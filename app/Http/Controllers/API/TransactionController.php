@@ -162,10 +162,8 @@ class TransactionController extends Controller
 
     public function updatestatus(Request $request)
     {
-        Delivery::create([
-            'kurir_id' => Auth::user()->id,
-            'transactions_id' => $request->id,
-        ]);
+
+
 
         $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->find($request->id);
         $data = $request->all();
