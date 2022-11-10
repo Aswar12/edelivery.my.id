@@ -159,9 +159,9 @@ class TransactionController extends Controller
         return ResponseFormatter::success($transaction->load('items.product'), 'Rating berhasil ditambahkan ');
     }
 
-    public function updatestatus(Request $request, $id)
+    public function updatestatus(Request $request,)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::findOrFail($request->id);
         $data = $request->all();
         $transaction->update($data);
 
