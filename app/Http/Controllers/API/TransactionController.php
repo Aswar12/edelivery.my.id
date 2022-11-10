@@ -162,7 +162,11 @@ class TransactionController extends Controller
 
     public function updatestatus(Request $request)
     {
-
+        $request->validate([
+            'id' => 'required|exists:transactions,id',
+            'status' => 'required|in:PENDING,SUCCESS,CANCELLED,FAILED,PICKUP,ONDELIVERY',
+            'kurir_id' => 'required'
+        ]);
 
 
         $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->find($request->id);

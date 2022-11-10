@@ -18,6 +18,10 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
+    public function kurir()
+    {
+        return $this->belongsTo(User::class, 'kurir_id', 'id');
+    }
 
     public function items()
     {
