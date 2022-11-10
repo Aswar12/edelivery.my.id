@@ -162,7 +162,12 @@ class TransactionController extends Controller
 
     public function updatestatus(Request $request,)
     {
-        $transaction = Transaction::findOrFail($request->id);
+        Delivery::create([
+            'kurir_id' => Auth::user()->id,
+            'transactions_id' => $request->input($request->id),
+        ]);
+
+        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->latest()->find($request->input('transactions_id'));
         $data = $request->all();
         $transaction->update($data);
 
@@ -172,10 +177,7 @@ class TransactionController extends Controller
     public function picupOrder(Request $request)
     {
 
-        Delivery::create([
-            'kurir_id' => Auth::user()->id,
-            'transactions_id' => $request->input('transactions_id'),
-        ]);
+
 
         $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->latest()->find($request->input('transactions_id'));
         return ResponseFormatter::success($transaction, 'Transaksi berhasil Di PickUp');
