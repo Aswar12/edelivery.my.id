@@ -167,19 +167,10 @@ class TransactionController extends Controller
             'transactions_id' => $request->input($request->id),
         ]);
 
-        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->latest()->find($request->input('transactions_id'));
+        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->find($request->id);
         $data = $request->all();
         $transaction->update($data);
 
         return ResponseFormatter::success($transaction, 'Transaksi berhasil diupdate');
-    }
-
-    public function picupOrder(Request $request)
-    {
-
-
-
-        $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->latest()->find($request->input('transactions_id'));
-        return ResponseFormatter::success($transaction, 'Transaksi berhasil Di PickUp');
     }
 }
