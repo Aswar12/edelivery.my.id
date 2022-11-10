@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
 
-            $table->double('kurir_id')->after('users_id')->nullable();
+            $table->bigInteger('kurir_id')->after('users_id')->nullable();
         });
     }
 
