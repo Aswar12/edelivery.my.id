@@ -168,6 +168,7 @@ class TransactionController extends Controller
             'kurir_id' => 'required'
         ]);
 
+        $request->kurir_id = Auth::user()->id;
 
         $transaction = Transaction::with(['items.product.galleries', 'user', 'user_location'])->find($request->id);
         $data = $request->all();
