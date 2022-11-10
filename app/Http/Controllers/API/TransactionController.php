@@ -165,7 +165,7 @@ class TransactionController extends Controller
         $request->validate([
             'id' => 'required|exists:transactions,id',
             'status' => 'required|in:PENDING,SUCCESS,CANCELLED,FAILED,PICKUP,ONDELIVERY',
-            'kurir_id' => 'required'
+
         ]);
 
         $request->kurir_id = Auth::user()->id;
