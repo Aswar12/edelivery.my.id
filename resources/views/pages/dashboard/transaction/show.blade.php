@@ -68,6 +68,14 @@
                                 <th class="border px-6 py-4 text-right">Status</th>
                                 <td class="border px-6 py-4">{{ $transaction->status }}</td>
                             </tr>
+                            <tr>
+                                <th class="border px-6 py-4 text-right">Kurir</th>
+                                <td class="border px-6 py-4">{{ $transaction->kurir->name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="border px-6 py-4 text-right">No Wa Kurir</th>
+                                <td class="border px-6 py-4">{{ $transaction->kurir->phone_number }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
