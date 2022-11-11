@@ -38,9 +38,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('checkout', [TransactionController::class, 'checkout']);
     Route::post('addrating', [TransactionController::class, 'addrating']);
     Route::post('updatestatus', [TransactionController::class, 'updatestatus']);
+    Route::get('getPickupOrderBykurir', [TransactionController::class, 'getPickupOrderBykurir']);
 });
 
-Route::get('getPickupOrderBykurir', [TransactionController::class, 'getPickupOrderBykurir']);
 Route::get('alltransactions', [TransactionController::class, 'alltransactions']);
 Route::get('products', [ProductController::class, 'all']);
 Route::get('categories', [ProductCategoryController::class, 'all']);
