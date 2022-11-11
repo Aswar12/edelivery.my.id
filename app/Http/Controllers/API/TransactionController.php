@@ -122,7 +122,7 @@ class TransactionController extends Controller
                 "body" => 'Memesan Sebuah' . ' ' . $transaction->items[0]->product->name,
             ],
             "data" => [
-                "main_picture" => Auth::user()->profile_photo_url,
+                "image" => Auth::user()->profile_photo_url,
             ]
 
         ];
