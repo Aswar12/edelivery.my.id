@@ -19,6 +19,8 @@
                     {data: 'user_location.address', name: 'user_location.address'},
                     { data: 'total_price', name: 'total_price' },
                     { data: 'status', name: 'status' },
+                    { data: 'kurir.nama', name: 'kurir.nama' },
+                    { data: 'kurir.phone_number', name: 'kurir.phone_number' },
                     {
                         data: 'action',
                         name: 'action',
@@ -43,6 +45,8 @@
                                 <th>Alamat</th>
                                 <th>Total Harga</th>
                                 <th>Status</th>
+                                <th>Nama Kurir</th>
+                                <th>No Wa Kurir</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>

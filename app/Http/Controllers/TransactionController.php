@@ -18,7 +18,7 @@ class TransactionController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Transaction::with(['user', 'user_location'])->latest();
+            $query = Transaction::with(['user', 'user_location', 'kurir'])->latest();
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
