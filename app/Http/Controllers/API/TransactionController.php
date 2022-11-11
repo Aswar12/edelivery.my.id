@@ -120,7 +120,11 @@ class TransactionController extends Controller
             "notification" => [
                 "title" => 'Pesanan masuk Dari' . ' ' . Auth::user()->name,
                 "body" => 'Memesan Sebuah' . ' ' . $transaction->items[0]->product->name,
+            ],
+            "data" => [
+                "main_picture" => Auth::user()->profile_photo_url,
             ]
+
         ];
         $dataString = json_encode($data);
 
